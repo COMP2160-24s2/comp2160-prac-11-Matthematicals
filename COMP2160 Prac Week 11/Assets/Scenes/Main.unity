@@ -622,7 +622,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 100
-  orthographic: 0
+  orthographic: 1
   orthographic size: 10
   m_Depth: -1
   m_CullingMask:
@@ -741,6 +741,8 @@ MonoBehaviour:
   scaleRatio: 50
   minfovRange: 50
   maxfovRange: 100
+  minOrthoSize: 3
+  maxOrthoSize: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

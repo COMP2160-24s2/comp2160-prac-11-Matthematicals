@@ -6,16 +6,20 @@ public class CameraFollow : MonoBehaviour
 {
     private Camera cam;
     private MarbleMove marble;
-    private Vector3 marblePos;
     void Start()
     {
         cam = Camera.main;
-        marble = GetComponent<MarbleMove>();
+        marble = FindObjectOfType<MarbleMove>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        marblePos = marble.transform.position;
+        transform.position = marble.transform.position;
+    }
+
+    void OnDrawGizmo(){
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 10);
     }
 }

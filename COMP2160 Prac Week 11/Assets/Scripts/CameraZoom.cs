@@ -12,25 +12,14 @@ public class CameraZoom : MonoBehaviour
     [Range(0, 180)][SerializeField] float minfovRange = 50f;
     [Range(0, 180)][SerializeField] float maxfovRange = 100f;
 
-    [Range(1, 10)][SerializeField] float minOrthoSize = 1f;
+    [Range(1, 10)][SerializeField] float minOrthoSize = 3f;
     [Range(1, 10)][SerializeField] float maxOrthoSize = 10f;
     void Awake()
     {
         playeractions = new Actions();
         input = playeractions.camera.zoom;
         cam = Camera.main;
-    }
-    void OnEnable()
-    {
-        input.Enable();
-    }
-    void OnDisable()
-    {
-        input.Disable();
-    }
-    // Update is called once per frame
-    void Update()
-    {
+
         if (maxfovRange < minfovRange)
         { //if the values are reversed
             float temp = maxfovRange;
@@ -43,6 +32,19 @@ public class CameraZoom : MonoBehaviour
             maxOrthoSize = minOrthoSize;
             minOrthoSize = temp;
         }
+    }
+    void OnEnable()
+    {
+        input.Enable();
+    }
+    void OnDisable()
+    {
+        input.Disable();
+    }
+    // Update is called once per frame
+    void Update()
+    {
+
 
         float delta = input.ReadValue<float>() / scaleRatio;
         if (delta != 0)
@@ -50,14 +52,16 @@ public class CameraZoom : MonoBehaviour
             // Debug.Log(delta);
             if (cam.orthographic)
             {
-                if(minOrthoSize <= cam.orthographicSize && maxOrthoSize >= cam.orthographicSize){
-                    cam.orthographicSize -= delta;
-                }
+                // Debug.Log(cam.orthographicSize);
+                // if(!(minOrthoSize <= cam.orthographicSize && maxOrthoSize >= cam.orthographicSize)){
+                // cam.orthographicSize -= delta;
+                cam.orthographicSize = Mathf.Clamp(cam.orthographicSize -= delta, minOrthoSize, maxOrthoSize);
+                // }
             }
             else
             {
-
-                cam.fieldOfView -= delta;
+                cam.fieldOfView = Mathf.Clamp(cam.fieldOfView -= delta, minfovRange, maxfovRange);
+                
             }
 
         }

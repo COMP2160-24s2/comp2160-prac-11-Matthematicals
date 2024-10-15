@@ -238,7 +238,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Test Perspective Camera Flat: \nMove the cross hair to different parts
+  m_text: "Test Orthographic Camera Flat: \nMove the cross hair to different parts
     of the screen and click.\n1. Check crosshair is always visible\n2. Check crosshair
     moves with mouse cursor.\n3. Check crosshair is displayed under the marble. \n4.
     Check visible target marker is dropped when mouse is clicked."
@@ -677,7 +677,7 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 184f488bf1486423baadff9ee0a0bade, type: 3}
---- !u!1 &1436142949
+--- !u!1 &1448799157
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -685,8 +685,8 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1436142951}
-  - component: {fileID: 1436142950}
+  - component: {fileID: 1448799159}
+  - component: {fileID: 1448799158}
   m_Layer: 0
   m_Name: CamFollower
   m_TagString: Untagged
@@ -694,25 +694,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1436142950
+--- !u!114 &1448799158
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1436142949}
+  m_GameObject: {fileID: 1448799157}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8aae3fc0310199c44918082a113d988a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!4 &1436142951
+--- !u!4 &1448799159
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1436142949}
+  m_GameObject: {fileID: 1448799157}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0.4999981, z: 0}
@@ -757,7 +757,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 0
-  orthographic size: 5
+  orthographic size: 10
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -853,13 +853,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4601777957755373507}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.7071068, y: -0, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 9.500002, z: 0}
+  m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 12.500002, z: -13}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1436142951}
-  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+  m_Father: {fileID: 1448799159}
+  m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
 --- !u!114 &7675371378090306039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -875,7 +875,7 @@ MonoBehaviour:
   scaleRatio: 50
   minfovRange: 50
   maxfovRange: 100
-  minOrthoSize: 3
+  minOrthoSize: 1
   maxOrthoSize: 10
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
@@ -887,4 +887,4 @@ SceneRoots:
   - {fileID: 923977100}
   - {fileID: 331283}
   - {fileID: 345881380}
-  - {fileID: 1436142951}
+  - {fileID: 1448799159}
