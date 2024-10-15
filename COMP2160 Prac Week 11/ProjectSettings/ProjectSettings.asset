@@ -838,8 +838,8 @@ PlayerSettings:
   apiCompatibilityLevelPerPlatform: {}
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
-  metroPackageName: COMP2160 Prac Week 11
-  metroPackageVersion: 
+  metroPackageName: COMP2160PracWeek11
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -847,7 +847,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: COMP2160 Prac Week 11
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: COMP2160 Prac Week 11
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
