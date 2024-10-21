@@ -75,7 +75,6 @@ public class UIManager : MonoBehaviour
     #region Update
     void Update()
     {
-
         SelectTarget();
     }
 
@@ -85,7 +84,24 @@ public class UIManager : MonoBehaviour
         // // Vector3 t = new Vector3(mousePos.x, mousePos.y, 10);
         // Ray mouse = camera.ScreenPointToRay(mousePos);
         // Debug.Log(x + " " + y);
-        crosshair.position = point;
+        // crosshair.position = point;
+        Vector3 delta = new Vector3(deltaAction.ReadValue<Vector2>().x, deltaAction.ReadValue<Vector2>().y, 0f);
+        Debug.Log(delta/10);
+        crosshair.position += delta;
+        // Debug.DrawRay(mouse.origin, mouse.direction, Color.red);
+        // Debug.Log(camera.ScreenToWorldPoint(t));
+        // crosshair.position = camera.ScreenToWorldPoint(t);
+
+
+    }
+    private void MoveCrosshairDelta(Vector3 point)
+    {
+        // Vector2 mousePos = mouseAction.ReadValue<Vector2>();
+        // // Vector3 t = new Vector3(mousePos.x, mousePos.y, 10);
+        // Ray mouse = camera.ScreenPointToRay(mousePos);
+        // Debug.Log(x + " " + y);
+        Debug.Log(point);
+        crosshair.Translate(point * Time.fixedDeltaTime);
         // Debug.DrawRay(mouse.origin, mouse.direction, Color.red);
         // Debug.Log(camera.ScreenToWorldPoint(t));
         // crosshair.position = camera.ScreenToWorldPoint(t);
@@ -106,19 +122,34 @@ public class UIManager : MonoBehaviour
 
     private void FixedUpdate()
     {
+        MoveCrosshair(Vector3.zero);
+
+        // Vector3 mousePos = deltaAction.ReadValue<Vector2>();
+        // Ray ray = camera.ScreenPointToRay(mousePos);
+        // crosshair.Translate(mousePos*Time.deltaTime);
+        // crosshair.Translate(mousePos * mousePos.magnitude);
+        
+        /*
+        // MoveCrosshairDelta(Vector3.up);
         Vector2 mousePos = mouseAction.ReadValue<Vector2>();
         Ray mouse = camera.ScreenPointToRay(mousePos);
         RaycastHit hit;
         LayerMask layer = LayerMask.GetMask(LayerMask.LayerToName(6));
+
         // Debug.Log(LayerMask.LayerToName(layer));
+        // Debug.Log(deltaAction.ReadValue<Vector2>());
         if (Physics.Raycast(mouse, out hit, Mathf.Infinity, layer))
         {
             // if (hit.collider.gameObject.layer == 6)
             // {
-                MoveCrosshair(hit.point);
+            hit.point = new Vector3(hit.point.x, hit.point.y + 0.01f, hit.point.z); // to remove z-fighting
+            
+            MoveCrosshair(hit.point);
             // }
 
         }
+
+        */
     }
 
     #endregion Update
