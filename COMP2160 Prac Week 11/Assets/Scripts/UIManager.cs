@@ -26,6 +26,13 @@ public class UIManager : MonoBehaviour
     {
         get { return instance; }
     }
+    public Transform Crosshair
+    {
+        get
+        {
+            return crosshair;
+        }
+    }
     private Camera camera;
     #endregion
 
@@ -34,6 +41,9 @@ public class UIManager : MonoBehaviour
     private InputAction mouseAction;
     private InputAction deltaAction;
     private InputAction selectAction;
+    [SerializeField] private float scale = 10f;
+    [SerializeField] private bool useDelta = false;
+    private LayerMask layer;
 
     #endregion
 
@@ -59,6 +69,8 @@ public class UIManager : MonoBehaviour
         camera = Camera.main;
         // Cursor.visible = false;
         target.gameObject.SetActive(false);
+        crosshair.position = Vector3.zero; //init to middle of screen
+        layer = LayerMask.GetMask(LayerMask.LayerToName(6));
     }
 
     void OnEnable()
@@ -75,39 +87,15 @@ public class UIManager : MonoBehaviour
     #region Update
     void Update()
     {
+        UpdatePos();
         SelectTarget();
     }
 
     private void MoveCrosshair(Vector3 point)
     {
-        // Vector2 mousePos = mouseAction.ReadValue<Vector2>();
-        // // Vector3 t = new Vector3(mousePos.x, mousePos.y, 10);
-        // Ray mouse = camera.ScreenPointToRay(mousePos);
-        // Debug.Log(x + " " + y);
-        // crosshair.position = point;
-        Vector3 delta = new Vector3(deltaAction.ReadValue<Vector2>().x, deltaAction.ReadValue<Vector2>().y, 0f);
-        Debug.Log(delta/10);
-        crosshair.position += delta;
-        // Debug.DrawRay(mouse.origin, mouse.direction, Color.red);
-        // Debug.Log(camera.ScreenToWorldPoint(t));
-        // crosshair.position = camera.ScreenToWorldPoint(t);
-
-
+        crosshair.position = point;
     }
-    private void MoveCrosshairDelta(Vector3 point)
-    {
-        // Vector2 mousePos = mouseAction.ReadValue<Vector2>();
-        // // Vector3 t = new Vector3(mousePos.x, mousePos.y, 10);
-        // Ray mouse = camera.ScreenPointToRay(mousePos);
-        // Debug.Log(x + " " + y);
-        Debug.Log(point);
-        crosshair.Translate(point * Time.fixedDeltaTime);
-        // Debug.DrawRay(mouse.origin, mouse.direction, Color.red);
-        // Debug.Log(camera.ScreenToWorldPoint(t));
-        // crosshair.position = camera.ScreenToWorldPoint(t);
 
-
-    }
 
     private void SelectTarget()
     {
@@ -120,36 +108,43 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    private void FixedUpdate()
+    private void UpdatePos()
     {
-        MoveCrosshair(Vector3.zero);
-
-        // Vector3 mousePos = deltaAction.ReadValue<Vector2>();
-        // Ray ray = camera.ScreenPointToRay(mousePos);
-        // crosshair.Translate(mousePos*Time.deltaTime);
-        // crosshair.Translate(mousePos * mousePos.magnitude);
-        
-        /*
-        // MoveCrosshairDelta(Vector3.up);
-        Vector2 mousePos = mouseAction.ReadValue<Vector2>();
-        Ray mouse = camera.ScreenPointToRay(mousePos);
-        RaycastHit hit;
-        LayerMask layer = LayerMask.GetMask(LayerMask.LayerToName(6));
-
-        // Debug.Log(LayerMask.LayerToName(layer));
-        // Debug.Log(deltaAction.ReadValue<Vector2>());
-        if (Physics.Raycast(mouse, out hit, Mathf.Infinity, layer))
+        if (useDelta == false)
         {
-            // if (hit.collider.gameObject.layer == 6)
-            // {
-            hit.point = new Vector3(hit.point.x, hit.point.y + 0.01f, hit.point.z); // to remove z-fighting
-            
-            MoveCrosshair(hit.point);
-            // }
+            Vector2 mousePos = mouseAction.ReadValue<Vector2>();
+            Ray mouse = camera.ScreenPointToRay(mousePos);
+            RaycastHit hit;
 
+
+            // Debug.Log(LayerMask.LayerToName(layer));
+            // Debug.Log(deltaAction.ReadValue<Vector2>());
+            if (Physics.Raycast(mouse, out hit, Mathf.Infinity, layer))
+            {
+                hit.point = new Vector3(hit.point.x, hit.point.y + 0.01f, hit.point.z); // to remove z-fighting          
+                MoveCrosshair(hit.point);
+            }
+        }
+        else
+        {
+            Vector2 delta = deltaAction.ReadValue<Vector2>();
+            Vector2 crosshairScreen = camera.WorldToScreenPoint(crosshair.position);
+            Ray deltaPos = camera.ScreenPointToRay((crosshairScreen + delta));
+
+            // Debug.DrawRay(test.origin, test.direction);
+            // Debug.Log(crosshairScreen + delta);
+            RaycastHit hit;
+            if (Physics.Raycast(deltaPos, out hit, Mathf.Infinity, layer))
+            {
+                // Debug.Log(hit.point);
+                MoveCrosshair(hit.point);
+            }
+            // crosshair to WorldToScreenPoint, then ray back
+            // crosshair.position += delta;
         }
 
-        */
+
+
     }
 
     #endregion Update
