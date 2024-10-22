@@ -137,6 +137,7 @@ public class UIManager : MonoBehaviour
             if (Physics.Raycast(deltaPos, out hit, Mathf.Infinity, layer))
             {
                 // Debug.Log(hit.point);
+                hit.point = new Vector3(hit.point.x, hit.point.y + 0.01f, hit.point.z); // to remove z-fighting 
                 MoveCrosshair(hit.point);
             }
             // crosshair to WorldToScreenPoint, then ray back
